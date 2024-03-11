@@ -1,5 +1,10 @@
-const Container = () => {
-  return <div>{/* Your component content goes here */}</div>;
+import { Children } from "react";
+
+interface ContainerProps {
+  children: React.ReactNode;
+}
+const Container: React.FC<ContainerProps> = ({ children }) => {
+  return <div>{children}</div>;
 };
 
 export default Container;

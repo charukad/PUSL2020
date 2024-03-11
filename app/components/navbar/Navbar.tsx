@@ -1,3 +1,4 @@
+import Container from "../Container";
 const Navbar = () => {
   return (
     <div className="fixed w-full bg-white z-10 shadow">
@@ -6,7 +7,7 @@ const Navbar = () => {
           py-4 
           border-b-[1px]"
       >
-        <Container></Container>
+        <Container>dfg</Container>
       </div>
     </div>
   );

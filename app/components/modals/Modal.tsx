@@ -1,9 +1,10 @@
 "use client";
-import { on } from "events";
-import { set } from "mongoose";
-import React, { useCallback, useEffect, useState } from "react";
+
+import { useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
+
 import Button from "../Button";
+
 interface ModalProps {
   isOpen?: boolean;
   onClose: () => void;
@@ -11,10 +12,10 @@ interface ModalProps {
   title?: string;
   body?: React.ReactElement;
   footer?: React.ReactElement;
-  actionLabel?: string;
+  actionLabel: string;
   disabled?: boolean;
   secondaryAction?: () => void;
-  secondaryLabel?: string;
+  secondaryActionLabel?: string;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -23,38 +24,44 @@ const Modal: React.FC<ModalProps> = ({
   onSubmit,
   title,
   body,
-  footer,
   actionLabel,
+  footer,
   disabled,
   secondaryAction,
-  secondaryLabel,
+  secondaryActionLabel,
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
+
   useEffect(() => {
     setShowModal(isOpen);
   }, [isOpen]);
+
   const handleClose = useCallback(() => {
     if (disabled) {
       return;
     }
+
     setShowModal(false);
     setTimeout(() => {
       onClose();
     }, 300);
-  }, [disabled, onClose]);
+  }, [onClose, disabled]);
+
   const handleSubmit = useCallback(() => {
     if (disabled) {
       return;
     }
+
     onSubmit();
-  }, [disabled, onSubmit]);
+  }, [onSubmit, disabled]);
 
   const handleSecondaryAction = useCallback(() => {
     if (disabled || !secondaryAction) {
       return;
     }
+
     secondaryAction();
-  }, [disabled, secondaryAction]);
+  }, [secondaryAction, disabled]);
 
   if (!isOpen) {
     return null;
@@ -132,7 +139,6 @@ const Modal: React.FC<ModalProps> = ({
                 "
               >
                 <button
-                  onClick={handleClose}
                   className="
                     p-1
                     border-0 
@@ -141,8 +147,9 @@ const Modal: React.FC<ModalProps> = ({
                     absolute
                     left-9
                   "
+                  onClick={handleClose}
                 >
-                  <IoMdClose size={20} />
+                  <IoMdClose size={18} />
                 </button>
                 <div className="text-lg font-semibold">{title}</div>
               </div>
@@ -159,8 +166,21 @@ const Modal: React.FC<ModalProps> = ({
                     w-full
                   "
                 >
-                  <Button />
+                  {secondaryAction && secondaryActionLabel && (
+                    <Button
+                      disabled={disabled}
+                      label={secondaryActionLabel}
+                      onClick={handleSecondaryAction}
+                      outline
+                    />
+                  )}
+                  <Button
+                    disabled={disabled}
+                    label={actionLabel}
+                    onClick={handleSubmit}
+                  />
                 </div>
+                {footer}
               </div>
             </div>
           </div>
@@ -169,4 +189,5 @@ const Modal: React.FC<ModalProps> = ({
     </>
   );
 };
+
 export default Modal;

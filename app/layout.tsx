@@ -4,7 +4,7 @@ import "./globals.css";
 import "tailwindcss/tailwind.css";
 import Navbar from "@/app/components/navbar/Navbar";
 import ClientOnly from "./components/ClientOnly";
-import Modal from "./components/modals/modal";
+import Modal from "./components/modals/Modal";
 const font = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

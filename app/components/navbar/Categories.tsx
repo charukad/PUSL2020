@@ -10,6 +10,7 @@ import { MdOutlineSecurity } from "react-icons/md";
 
 import Container from "../Container";
 import CategoryBox from "../CategoryBox";
+import { useSearchParams, usePathname } from "next/navigation";
 
 export const categories = [
   {
@@ -18,7 +19,7 @@ export const categories = [
     description: "Modern House",
   },
   {
-    label: "Apartment",
+    label: "Apartments",
     icon: MdApartment,
     description: "This is a Apartment",
   },
@@ -28,7 +29,7 @@ export const categories = [
     description: "Minimal House!",
   },
   {
-    label: "With Food",
+    label: "Meals Included",
     icon: IoFastFoodOutline,
     description: "Bodim House With Food",
   },
@@ -49,6 +50,15 @@ export const categories = [
   },
 ];
 const Categories = () => {
+  const params = useSearchParams();
+  const category = params?.get("category");
+  const pathname = usePathname();
+  const isMainPage = pathname === "/";
+
+  if (!isMainPage) {
+    return null;
+  }
+
   return (
     <Container>
       <div
@@ -62,7 +72,12 @@ const Categories = () => {
         "
       >
         {categories.map((item) => (
-          <CategoryBox key={item.label} label={item.label} icon={item.icon} />
+          <CategoryBox
+            key={item.label}
+            label={item.label}
+            icon={item.icon}
+            selected={category === item.label}
+          />
         ))}
       </div>
     </Container>

@@ -1,3 +1,5 @@
+"use client";
+
 import { IconType } from "react-icons";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
@@ -45,6 +47,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
   }, [label, router, params]);
   return (
     <div
+      onClick={handleClick}
       className={`
         flex 
         flex-col 

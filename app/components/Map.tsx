@@ -1,7 +1,6 @@
-"use client";
-
+import React, { useState } from "react";
 import L from "leaflet";
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
 
 import "leaflet/dist/leaflet.css";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
@@ -25,15 +24,30 @@ const attribution =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 const Map: React.FC<MapProps> = ({ center }) => {
+  const [markerPosition, setMarkerPosition] =
+    useState<L.LatLngExpression | null>(null);
+
+  const MapClickHandler = () => {
+    useMapEvents({
+      click: (event) => {
+        const { lat, lng } = event.latlng;
+        setMarkerPosition([lat, lng]);
+      },
+    });
+    return null;
+  };
+
   return (
     <MapContainer
-      center={(center as L.LatLngExpression) || [51, -0.09]}
+      center={(center as L.LatLngExpression) || [6.82129, 80.04158]}
       zoom={center ? 4 : 2}
       scrollWheelZoom={false}
       className="h-[35vh] rounded-lg"
     >
       <TileLayer url={url} attribution={attribution} />
+      <MapClickHandler />
       {center && <Marker position={center as L.LatLngExpression} />}
+      {markerPosition && <Marker position={markerPosition} />}
     </MapContainer>
   );
 };

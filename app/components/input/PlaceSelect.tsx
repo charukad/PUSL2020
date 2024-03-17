@@ -23,7 +23,7 @@ const PlaceSelect: React.FC<PlaceSelectProps> = ({ value, onChange }) => {
   return (
     <div>
       <Select
-        placeholder="Anywhere"
+        placeholder="Pin your place on the map"
         isClearable
         options={getAll()}
         value={value}

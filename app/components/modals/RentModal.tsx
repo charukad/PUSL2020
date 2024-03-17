@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useMemo } from "react";
 import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
-import CategoryInput from "../input/CategoryInput";
+import CatogoryInput from "../input/CatogoryInput";
 import { useForm } from "react-hook-form";
 import { FieldValues } from "react-hook-form";
 import PlaceSelect from "../input/PlaceSelect";
@@ -16,6 +16,7 @@ import Counter from "../input/Counter";
 import Gender from "../navbar/Gender";
 import GenderBox from "../GenderBox";
 import { genderOptions } from "../navbar/Gender";
+import ImageUpload from "../input/ImageUpload";
 
 enum STEPS {
   CATEGORY = 0,
@@ -121,7 +122,7 @@ const RentModal = () => {
       >
         {categories.map((item) => (
           <div key={item.label} className="col-span-1">
-            <CategoryInput
+            <CatogoryInput
               onClick={(category) => setCustomValue("category", category)}
               selected={category === item.label}
               label={item.label}

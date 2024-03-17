@@ -13,14 +13,18 @@ import PlaceSelect from "../input/PlaceSelect";
 import Map from "../Map";
 import dynamic from "next/dynamic";
 import Counter from "../input/Counter";
+import Gender from "../navbar/Gender";
+import GenderBox from "../GenderBox";
+import { genderOptions } from "../navbar/Gender";
 
 enum STEPS {
   CATEGORY = 0,
-  LOCATION = 1,
-  INFO = 2,
-  IMAGES = 3,
-  DESCRIPTION = 4,
-  PRICE = 5,
+  GENDER = 1,
+  LOCATION = 2,
+  INFO = 3,
+  IMAGES = 4,
+  DESCRIPTION = 5,
+  PRICE = 6,
 }
 
 const RentModal = () => {
@@ -38,8 +42,9 @@ const RentModal = () => {
   } = useForm<FieldValues>({
     defaultValues: {
       category: "",
+      gender: "",
       location: null,
-      guestCount: 1,
+      sex: "",
       roomCount: 1,
       bathroomCount: 1,
       imageSrc: "",
@@ -51,6 +56,8 @@ const RentModal = () => {
 
   const location = watch("location");
   const category = watch("category");
+  const gender = watch("gender");
+  const sex = watch("sexr");
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
@@ -125,6 +132,21 @@ const RentModal = () => {
       </div>
     </div>
   );
+  if (step === STEPS.GENDER) {
+    bodyContent = (
+      <div className="grid grid-cols-2 gap-3">
+        {genderOptions.map((item) => (
+          <GenderBox
+            key={item.label}
+            label={item.label}
+            icon={item.icon}
+            selected={gender === item.label}
+            onClick={(gender) => setCustomValue("gender", gender)}
+          />
+        ))}
+      </div>
+    );
+  }
   if (step === STEPS.LOCATION) {
     bodyContent = (
       <div className="flex flex-col gap-8">
